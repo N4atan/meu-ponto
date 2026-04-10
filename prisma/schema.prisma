@@ -1,0 +1,22 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Sua tabela: dia_trabalhado
+model DiaTrabalhado {
+  id           String    @id @default(uuid())
+  dia          String  @unique // Para não deixar bater o ponto duas vezes no mesmo dia por engano
+  horaEntrada  DateTime
+  horaSaida    DateTime? // A interrogação significa que pode ser nulo (quando bater a entrada, a saída ainda não existe)
+  horasTotal   Float?
+
+}

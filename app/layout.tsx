@@ -1,5 +1,6 @@
 import { Gochi_Hand } from 'next/font/google';
 import { Header } from "@/components/Header";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
 // Configuração da fonte
@@ -20,6 +21,7 @@ export default function RootLayout({
       className={`h-full antialiased ${gochiHand.variable}`}
     >
       <body className="font-sans antialiased text-base">
+        <Toaster position="bottom-right" reverseOrder={false} />
         <main className="min-h-screen flex flex-col bg-zinc-50">
           <Header />
           {children}

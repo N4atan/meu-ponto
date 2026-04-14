@@ -4,14 +4,23 @@ import toast from "react-hot-toast";
 export interface DiaTrabalhado {
     id: number;
     dia: string;
-    horaEntrada: string;
-    horaSaida: string;
+    horaEntrada: Date;
+    horaSaida: Date | null;
 }
 
 export const PontoAPI = {
     buscarPontos: async () => {
         const response = await axios.get("/api/ponto");
-        return response.data;
+
+        const ponto = response.data.map((p: DiaTrabalhado) => {
+            return {
+                ...p,
+                horaEntrada: new Date(p.horaEntrada),
+                horaSaida: p.horaSaida ? new Date(p.horaSaida) : null
+            }
+        });
+
+        return ponto;
     },
     
     baterPonto: async (date?: Date) => {

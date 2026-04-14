@@ -4,6 +4,8 @@ import { LogOut, LogIn } from 'lucide-react';
 import { DiaTrabalhado, PontoAPI } from "@/services/ponto";
 import { useEffect, useState } from "react";
 import { addHours, addMinutes } from 'date-fns';
+import HistLogin from '@/components/list_components/hist_login';
+import TabContent from '@/components/tab_content/tab_content';
 
 export default function Home() {
   const [ponto, setPonto] = useState<DiaTrabalhado[]>([]);
@@ -111,37 +113,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="card card-border bg-base-100 w-96 border-base-300 my-5 mx-auto">
-        <div className="card-body">
-          <h2 className="card-title">Histórico do Dia</h2>
-
-          <div className="flex flex-col gap-4">
-
-            <ul className='flex flex-col gap-3 list-none'>
-              {pontoDoDia && (
-                <li className='flex items-center gap-3 p-2 px-4 bg-base-100 rounded-md border border-base-300'>
-                  <div className='rounded-full p-2 bg-success/10'>
-                    <LogIn size={18} className='text-success' />
-                  </div>
-                  <p className='flex-1 font-medium text-base-content/80'>Entrada</p>
-                  <p className='text-sm font-mono font-semibold text-end'>{new Date(pontoDoDia.horaEntrada).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</p>
-                </li>
-              )}
-
-              {pontoDoDia?.horaSaida && (
-                <li className='flex items-center gap-3 p-2 px-4 bg-base-100 rounded-md border border-base-300'>
-                  <div className='rounded-full p-2 bg-error/10'>
-                    <LogOut size={18} className='text-error' />
-                  </div>
-                  <p className='flex-1 font-medium text-base-content/80'>Saída</p>
-                  <p className='text-sm font-mono font-semibold text-end'>{new Date(pontoDoDia.horaSaida).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</p>
-                </li>
-              )}
-            </ul>
-
-          </div>
-        </div>
-      </div>
+      <TabContent pontoDoDia={pontoDoDia} ponto={ponto} />
 
     </>
   )

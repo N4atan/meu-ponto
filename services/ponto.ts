@@ -10,19 +10,34 @@ export interface DiaTrabalhado {
 
 export const PontoAPI = {
     buscarPontos: async () => {
-        const response = await axios.get("/api/ponto");
+        try {
+            const response = await axios.get("/api/ponto");
 
-        const ponto = response.data.map((p: DiaTrabalhado) => {
-            return {
-                ...p,
-                horaEntrada: new Date(p.horaEntrada),
-                horaSaida: p.horaSaida ? new Date(p.horaSaida) : null
-            }
-        });
+            const ponto = response.data.map((p: DiaTrabalhado) => {
+                return {
+                    ...p,
+                    horaEntrada: new Date(p.horaEntrada),
+                    horaSaida: p.horaSaida ? new Date(p.horaSaida) : null
+                }
+            });
 
-        return ponto;
+            return ponto;
+        } catch (error: any) {
+            toast.error(error.response?.data?.message || "Erro ao buscar ponto");
+            throw error;
+        }
     },
-    
+
+    buscarPonto: async (dia: string) => {
+        try {
+            const response = await axios.get(`/api/ponto/${dia}`);
+            return response.data as DiaTrabalhado;
+        } catch (error: any) {
+            toast.error(error.response?.data?.message || "Erro ao bater ponto");
+            throw error;
+        }
+    },
+
     baterPonto: async (date?: Date) => {
         try {
             const response = await axios.post("/api/ponto", { date });

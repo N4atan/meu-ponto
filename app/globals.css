@@ -4,3 +4,7 @@
 @theme {
   --font-gochi: var(--font-gochi-hand), cursive;
 }
+
+body {
+  scroll-behavior: smooth;
+}

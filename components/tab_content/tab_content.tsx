@@ -10,6 +10,7 @@ type Props = {
 }
 
 const tabContent = ({ pontoDoDia, ponto }: Props) => {
+
     return (
         <div className="tabs tabs-lift w-96 border-base-300 my-5 mx-auto">
             <label className="tab">
@@ -39,14 +40,12 @@ const tabContent = ({ pontoDoDia, ponto }: Props) => {
                 Calendário
             </label>
             <div className="tab-content bg-base-100 border-base-300 p-6">
-                <h2 className="card-title mb-2">Calendário Mensal</h2>
-
-                <MyCalendar workedDays={ponto.map((p) => new Date(p.dia.split('T')[0] + 'T12:00:00'))}/>
+                <MyCalendar ponto={ponto}/>
             </div>
 
 
         </div>
-    )
+    )   
 }
 
 export default tabContent;

@@ -1,10 +1,8 @@
 "use client";
 
-import { LogOut, LogIn } from 'lucide-react';
 import { DiaTrabalhado, PontoAPI } from "@/services/ponto";
 import { useEffect, useState } from "react";
 import { addHours, addMinutes } from 'date-fns';
-import HistLogin from '@/components/list_components/hist_login';
 import TabContent from '@/components/tab_content/tab_content';
 
 export default function Home() {

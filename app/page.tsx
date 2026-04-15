@@ -1,6 +1,7 @@
 "use client";
 
-import { DiaTrabalhado, PontoAPI } from "@/services/ponto";
+import { PontoAPI } from "@/services/ponto";
+import { DiaTrabalhado } from "@/lib/prisma";
 import { useEffect, useState } from "react";
 import { addHours, addMinutes } from 'date-fns';
 import TabContent from '@/components/tab_content/tab_content';

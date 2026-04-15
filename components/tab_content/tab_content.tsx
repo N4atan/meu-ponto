@@ -1,5 +1,5 @@
 import HistLogin from "../list_components/hist_login"
-import { DiaTrabalhado } from "@/services/ponto"
+import { DiaTrabalhado } from "@/lib/prisma";
 import { ChartBar, Calendar } from "lucide-react"
 import MyCalendar from "../my_calendar/my_calendar"
 

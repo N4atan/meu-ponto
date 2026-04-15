@@ -17,6 +17,5 @@ model DiaTrabalhado {
   dia          String  @unique // Para não deixar bater o ponto duas vezes no mesmo dia por engano
   horaEntrada  DateTime
   horaSaida    DateTime? // A interrogação significa que pode ser nulo (quando bater a entrada, a saída ainda não existe)
-  horasTotal   Float?
-
+  minutosExtras   Int?
 }

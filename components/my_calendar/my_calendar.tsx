@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { DayPicker, DayButtonProps } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import { ptBR } from 'date-fns/locale';
-import { DiaTrabalhado } from '@/services/ponto';
+import { DiaTrabalhado } from '@/lib/prisma';
 
 type MyCalendarProps = {
     ponto: DiaTrabalhado[];

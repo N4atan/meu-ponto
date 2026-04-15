@@ -1,6 +1,6 @@
 import { FullDateLabel } from "./full_date_label";
 import { Countdown } from "./countdown";
-import { DiaTrabalhado } from "@/services/ponto";
+import { DiaTrabalhado } from "@/lib/prisma";
 import { useState, useEffect } from "react";
 import { PontoAPI } from "@/services/ponto";
 import { addHours, addMinutes } from "date-fns";

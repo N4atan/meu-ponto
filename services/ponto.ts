@@ -1,12 +1,8 @@
 import axios from "axios";
 import toast from "react-hot-toast";
+import { DiaTrabalhado } from "@/lib/prisma";
 
-export interface DiaTrabalhado {
-    id: number;
-    dia: string;
-    horaEntrada: Date;
-    horaSaida: Date | null;
-}
+
 
 export const PontoAPI = {
     buscarPontos: async () => {

@@ -45,9 +45,9 @@ export const PontoAPI = {
         }
     },
 
-    encerrarJornada: async (date?: Date) => {
+    encerrarJornada: async (dia: string) => {
         try {
-            const response = await axios.patch("/api/ponto", { date });
+            const response = await axios.patch(`/api/ponto/${dia}`);
             toast.success(response.data.message);
             return response.data;
         } catch (error: any) {

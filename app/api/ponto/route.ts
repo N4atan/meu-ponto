@@ -42,39 +42,3 @@ export async function POST(request: Request) {
     }
 }
 
-export async function PATCH(request: Request) {
-    try {
-        const agora = new Date();
-
-        const diaLocal = agora.toLocaleDateString('en-CA', {
-            timeZone: 'America/Sao_Paulo'
-        });;
-
-        const { dia } = await request.json();
-
-        const ponto = await prisma.diaTrabalhado.findUnique({
-            where: {
-                dia: dia ?? diaLocal,
-            }
-        });
-
-        if (!ponto) {
-            return NextResponse.json({ message: "Ponto não encontrado" }, { status: 404 });
-        }
-
-        const pontoAtualizado = await prisma.diaTrabalhado.update({
-            where: {
-                dia: dia ?? diaLocal,
-            },
-            data: {
-                horaSaida: agora,
-            }
-        });
-
-        return NextResponse.json({ status: 200, message: "Ponto encerrado com sucesso" });
-
-    } catch (error: any) {
-        console.log(error);
-        return NextResponse.json({ message: "Erro ao atualizar ponto" }, { status: 500 });
-    }
-}

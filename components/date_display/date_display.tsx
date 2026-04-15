@@ -45,7 +45,7 @@ export const DateDisplay = ({ pontoDoDia, onReload }: Props) => {
 
                         <div className="card-actions justify-end">
                             <button className="btn btn-outline btn-secondary btn-wide mt-5" onClick={() => {
-                                PontoAPI.encerrarJornada(new Date()).then(() => {
+                                PontoAPI.encerrarJornada(pontoDoDia.dia).then(() => {
                                     onReload();
                                 });
                             }}>

@@ -8,11 +8,13 @@ import TabContent from '@/components/tab_content/tab_content';
 import { FullDateLabel } from "@/components/date_display/full_date_label";
 import { Countdown } from "@/components/date_display/countdown";
 import { DateDisplay } from "@/components/date_display/date_display";
+import { SaldoAPI } from "@/services/saldo";
 
 export default function Home() {
   const [isMounted, setIsMounted] = useState<Boolean>(false);
   const [ponto, setPonto] = useState<DiaTrabalhado[]>([]);
   const [pontoDoDia, setPontoDoDia] = useState<DiaTrabalhado | null>(null);
+  const [saldo, setSaldo] = useState<string>("0 min");
 
   const reloadPonto = () => {
     PontoAPI.buscarPontos().then((response) => {
@@ -37,6 +39,10 @@ export default function Home() {
       setPontoDoDia(null);
     }
 
+    SaldoAPI.buscarSaldo().then((response) => {
+      setSaldo(response.saldoTotal);
+    });
+
   }, [ponto]);
 
 
@@ -50,7 +56,7 @@ export default function Home() {
 
       <DateDisplay pontoDoDia={pontoDoDia} onReload={reloadPonto} />
 
-      <TabContent pontoDoDia={pontoDoDia} ponto={ponto} />
+      <TabContent pontoDoDia={pontoDoDia} ponto={ponto} saldo={saldo}/>
 
     </>
   )

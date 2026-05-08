@@ -5,6 +5,7 @@ import { DayPicker, DayButtonProps } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import { ptBR } from 'date-fns/locale';
 import { DiaTrabalhado } from '@/lib/prisma';
+import { minutesToHours } from 'date-fns';
 
 type MyCalendarProps = {
     ponto: DiaTrabalhado[];
@@ -25,9 +26,14 @@ const MyCalendar = ({ ponto }: MyCalendarProps) => {
             const p = ponto.find(p => p.dia.startsWith(dateStr));
             
             if (p) {
+                const tempoExtra = p.minutosExtras || 0;
                 const entrada = new Date(p.horaEntrada).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
                 const saida = p.horaSaida ? new Date(p.horaSaida).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : '--:--';
-                tooltipText = `Entrada: ${entrada} | Saída: ${saida}`;
+                let h = minutesToHours(tempoExtra);
+                let m = tempoExtra % 60
+                
+
+                tooltipText = `${entrada} | ${saida} | ${h}h${m}m`;
             }
         }
 

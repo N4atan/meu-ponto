@@ -2,26 +2,6 @@ import { prisma } from "@/lib/prisma";
 import { addHours, addMinutes, differenceInHours, differenceInMinutes } from "date-fns";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(
-    request: NextRequest, 
-    { params }: { params: Promise<{ dia: string }> }
-) {
-    try {
-        const { dia } = await params;
-
-        const ponto = await prisma.diaTrabalhado.findFirst({
-            where: {
-                dia: dia,
-            }
-        });
-
-        return NextResponse.json(ponto);
-
-    } catch (error) {
-        console.log(error);
-        return NextResponse.json({ message: "Erro ao buscar ponto" }, { status: 500 });
-    }
-}
 
 export async function PATCH(
     request: Request,
@@ -29,7 +9,8 @@ export async function PATCH(
 ) {
     try {
         const { dia } = await params;
-        
+        const body = await request.json();
+        const { tempoExtra } = body;
 
         const ponto = await prisma.diaTrabalhado.findUnique({
             where: {
@@ -44,7 +25,7 @@ export async function PATCH(
         const agora = new Date();
         const saidaPrevista = addMinutes(addHours(ponto.horaEntrada, 6), 15);
 
-        const diffMin = differenceInMinutes(agora, saidaPrevista);
+        const diffMin = tempoExtra ? tempoExtra : differenceInMinutes(agora, saidaPrevista)
         
 
         const pontoAtualizado = await prisma.diaTrabalhado.update({
@@ -57,7 +38,7 @@ export async function PATCH(
             }
         });
 
-        return NextResponse.json(pontoAtualizado, { status: 200 });
+        return NextResponse.json({ status: 200 });
 
     } catch (error: any) {
         console.log(error);

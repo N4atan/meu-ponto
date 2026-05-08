@@ -13,6 +13,38 @@ export async function GET() {
     }
 }
 
+/*
+export async function POST(request: Request) {
+    try {
+        const agora = new Date();
+
+        const diaLocal = agora.toLocaleDateString('en-CA', {
+            timeZone: 'America/Sao_Paulo'
+        });;
+
+        const { dia, ausencia } = await request.json();
+
+        const novoPonto = await prisma.diaTrabalhado.create({
+            data: {
+                dia: dia ?? diaLocal,
+                horaEntrada: agora,
+                ...(ausencia ? { horaSaida: agora, minutosExtras: -375 } : {})
+            }
+        });
+
+        return NextResponse.json(novoPonto, { status: 201 });
+    } catch (error: any) {
+        if (error.code === "P2002") {
+            console.log("Ponto ja batido");
+            return NextResponse.json({ message: "Ponto ja batido" }, { status: 400 });
+        }
+
+        console.log(error);
+        return NextResponse.json({ message: "Erro ao bater ponto" }, { status: 500 });
+    }
+}
+*/
+
 export async function POST(request: Request) {
     try {
         const agora = new Date();
@@ -30,7 +62,7 @@ export async function POST(request: Request) {
             }
         });
 
-        return NextResponse.json({ status: 201, message: "Ponto batido com sucesso" });
+        return NextResponse.json(novoPonto, { status: 201 });
     } catch (error: any) {
         if (error.code === "P2002") {
             console.log("Ponto ja batido");

@@ -24,8 +24,9 @@ export const PontoAPI = {
         }
     },
 
-    buscarPonto: async (dia: string) => {
+    buscarPonto: async (date: Date) => {
         try {
+            const dia = date.toISOString().split("T")[0];
             const response = await axios.get(`/api/ponto/${dia}`);
             return response.data as DiaTrabalhado;
         } catch (error: any) {
@@ -34,10 +35,12 @@ export const PontoAPI = {
         }
     },
 
-    baterPonto: async (date?: Date) => {
+    baterPonto: async (date: Date) => {
         try {
-            const response = await axios.post("/api/ponto", { date });
-            toast.success(response.data.message);
+            const dia = date.toISOString().split("T")[0];
+
+            const response = await axios.post(`/api/ponto`, { dia });
+            toast.success("Ponto registrado com sucesso!");
             return response.data;
         } catch (error: any) {
             toast.error(error.response?.data?.message || "Erro ao bater ponto");
@@ -45,13 +48,26 @@ export const PontoAPI = {
         }
     },
 
-    encerrarJornada: async (dia: string) => {
+    encerrarJornada: async (date: Date) => {
         try {
+            const dia = date.toISOString().split("T")[0];
             const response = await axios.patch(`/api/ponto/${dia}`);
-            toast.success(response.data.message);
+            toast.success("Jornada encerrada com sucesso!");
             return response.data;
         } catch (error: any) {
             toast.error(error.response?.data?.message || "Erro ao encerrar jornada");
+            throw error;
+        }
+    },
+
+    inserirAusencia: async (date: Date) => {
+        try {
+            const dia = date.toISOString().split("T")[0];
+            const response = await axios.post(`/api/ponto`, { dia, ausencia: true });
+            toast.success("Ausência inserida com sucesso!");
+            return response.data;
+        } catch (error: any) {
+            toast.error(error.response?.data?.message || "Erro ao inserir ausência");
             throw error;
         }
     }

@@ -36,6 +36,14 @@ export const DateDisplay = ({ pontoDoDia, onReload }: Props) => {
                         }}>
                             Iniciar Jornada
                         </button>
+
+                        <button className="btn btn-outline btn-warning btn-wide mt-5" onClick={() => {
+                            PontoAPI.inserirAusencia(new Date()).then(() => {
+                                onReload();
+                            });
+                        }}>
+                            Inserir Ausência
+                        </button>
                     </div>
                 )}
 
@@ -45,7 +53,7 @@ export const DateDisplay = ({ pontoDoDia, onReload }: Props) => {
 
                         <div className="card-actions justify-end">
                             <button className="btn btn-outline btn-secondary btn-wide mt-5" onClick={() => {
-                                PontoAPI.encerrarJornada(pontoDoDia.dia).then(() => {
+                                PontoAPI.encerrarJornada(new Date()).then(() => {
                                     onReload();
                                 });
                             }}>

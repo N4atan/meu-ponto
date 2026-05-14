@@ -15,13 +15,16 @@ const MyCalendar = ({ ponto }: MyCalendarProps) => {
     
     const workedDays = ponto.filter((p) => p.horaSaida !== null).map((p) => new Date(p.dia.split('T')[0] + 'T12:00:00'));
     const onlyEntry  = ponto.filter((p) => p.horaSaida === null).map((p) => new Date(p.dia.split('T')[0] + 'T12:00:00'));
+    const dontWorkedDay = ponto.filter((p) => p.minutosExtras === -375).map((p) => new Date(p.dia.split('T')[0] + 'T12:00:00'));
+
+    
 
     const CustomDayButton = (props: DayButtonProps) => {
         const { day, modifiers, ...buttonProps } = props;
         
         let tooltipText = "";
         
-        if (modifiers.worked || modifiers.onlyEntry) {
+        if (modifiers.worked || modifiers.onlyEntry || modifiers.dontWorkedDay) {
             const dateStr = day.date.toLocaleDateString('en-CA');
             const p = ponto.find(p => p.dia.startsWith(dateStr));
             
@@ -29,8 +32,9 @@ const MyCalendar = ({ ponto }: MyCalendarProps) => {
                 const tempoExtra = p.minutosExtras || 0;
                 const entrada = new Date(p.horaEntrada).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
                 const saida = p.horaSaida ? new Date(p.horaSaida).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : '--:--';
-                let h = minutesToHours(tempoExtra);
-                let m = tempoExtra % 60
+                const h = minutesToHours(tempoExtra);
+                const m = tempoExtra % 60
+
                 
 
                 tooltipText = `${entrada} | ${saida} | ${h}h${m}m`;
@@ -56,13 +60,15 @@ const MyCalendar = ({ ponto }: MyCalendarProps) => {
                 className="bg-base-100 rounded-lg p-2"
                 modifiers={{
                     worked: workedDays,
-                    onlyEntry: onlyEntry
+                    onlyEntry: onlyEntry,
+                    dontWorkedDay: dontWorkedDay
                 }}
                 modifiersClassNames={{
                     today: 'bg-base-300 rounded-lg',
                     selected: 'bg-base-200',
                     worked: 'font-bold text-secondary rounded',
-                    onlyEntry: 'font-bold text-secondary rounded'
+                    onlyEntry: 'font-bold text-info rounded',
+                    dontWorkedDay: 'font-bold text-error rounded'
                 }}
                 components={{
                     DayButton: CustomDayButton

@@ -11,10 +11,10 @@ import { DateDisplay } from "@/components/date_display/date_display";
 import { SaldoAPI } from "@/services/saldo";
 
 export default function Home() {
-  const [isMounted, setIsMounted] = useState<Boolean>(false);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
   const [ponto, setPonto] = useState<DiaTrabalhado[]>([]);
   const [pontoDoDia, setPontoDoDia] = useState<DiaTrabalhado | null>(null);
-  const [saldo, setSaldo] = useState<string>("0 min");
+  const [saldo, setSaldo] = useState<number>(0);
 
   const reloadPonto = () => {
     PontoAPI.buscarPontos().then((response) => {
@@ -40,7 +40,7 @@ export default function Home() {
     }
 
     SaldoAPI.buscarSaldo().then((response) => {
-      setSaldo(response.saldoTotal);
+      setSaldo(Number(response.saldoTotal));
     });
 
   }, [ponto]);

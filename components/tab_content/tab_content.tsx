@@ -6,7 +6,7 @@ import { SaldoTab } from "../tabs/saldo_tab";
 type Props = {
     pontoDoDia: DiaTrabalhado | null;
     ponto: DiaTrabalhado[];
-    saldo: string;
+    saldo: number;
 }
 
 const TabContent = ({ pontoDoDia, ponto, saldo }: Props) => {

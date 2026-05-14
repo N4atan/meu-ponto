@@ -1,12 +1,15 @@
-import { ChartBar, LogIn, LogOut } from "lucide-react";
+import { ChartBar, Clock, ClockAlert, LogIn, LogOut } from "lucide-react";
 import HistItem from "../list_components/hist_item";
 import { DiaTrabalhado } from "@/lib/prisma";
+import { minutesToHours } from "date-fns";
+
 
 type Props = {
     pontoDoDia: DiaTrabalhado | null;
 }
 
 export const HistTab = ({ pontoDoDia }: Props) => {
+
     return (
         <>
             <label className="tab">
@@ -28,12 +31,20 @@ export const HistTab = ({ pontoDoDia }: Props) => {
                         )}
 
                         {pontoDoDia?.horaSaida && (
+                            <>
                             <HistItem 
                                 icon={<LogOut size={18} />}
                                 colorClass="error"
                                 title="Saída"
                                 value={new Date(pontoDoDia.horaSaida).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
                             />
+                            <HistItem 
+                                icon={<ClockAlert size={18} />}
+                                colorClass="warning"
+                                title='Tempo Extra'
+                                value={pontoDoDia.minutosExtras ? `${minutesToHours(pontoDoDia.minutosExtras)}h ${pontoDoDia.minutosExtras % 60}m` : '0h 0m'}
+                            />
+                            </>
                         )}
                     </ul>
                 </div>

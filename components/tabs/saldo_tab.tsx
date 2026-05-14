@@ -1,9 +1,10 @@
-import { Clock } from "lucide-react";
+import { Clock, ClockPlus } from "lucide-react";
 import HistItem from "../list_components/hist_item";
-import { useEffect, useState } from "react";
+import { minutesToHours } from "date-fns";
+
 
 type Props = {
-    saldo: string;
+    saldo: number;
 }
 
 export const SaldoTab = ({saldo}: Props) => {
@@ -19,10 +20,10 @@ export const SaldoTab = ({saldo}: Props) => {
                 
                 <ul className='flex flex-col gap-3 list-none'>
                     <HistItem 
-                        icon={<Clock size={18} />}
-                        colorClass="primary"
+                        icon={<ClockPlus size={18} />}
+                        colorClass="info"
                         title="Banco de Horas"
-                        value={saldo ? `${saldo} min` : "0 min"}
+                        value={saldo ? `${minutesToHours(saldo)}h ${saldo % 60}m` : '0h 0m'}
                     />
                 </ul>
             </div>

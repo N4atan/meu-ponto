@@ -1,3 +1,5 @@
+"use client"
+
 import { exportToExcel } from "@/actions/sheet-action";
 import { Database, FileSpreadsheetIcon } from "lucide-react";
 

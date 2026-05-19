@@ -1,4 +1,4 @@
-import { Database } from "lucide-react";
+import { Database, FileSpreadsheetIcon } from "lucide-react";
 
 export const Header = () => (
     <header className="navbar bg-base-100 shadow-sm ">
@@ -23,7 +23,10 @@ export const Header = () => (
                         <Database size={14}/>
                         Dados do App
                     </a></li>
-                    <li><a>Item 2</a></li>
+                    <li><a>
+                        <FileSpreadsheetIcon size={14}/>
+                        Exportar para [.xlsx]
+                    </a></li>
                 </ul>
             </div>
         </div>

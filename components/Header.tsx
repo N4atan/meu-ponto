@@ -1,3 +1,4 @@
+import { exportToExcel } from "@/actions/sheet-action";
 import { Database, FileSpreadsheetIcon } from "lucide-react";
 
 export const Header = () => (
@@ -23,7 +24,7 @@ export const Header = () => (
                         <Database size={14}/>
                         Dados do App
                     </a></li>
-                    <li><a>
+                    <li onClick={() => exportToExcel()}><a>
                         <FileSpreadsheetIcon size={14}/>
                         Exportar para [.xlsx]
                     </a></li>

@@ -23,7 +23,7 @@ export const DateDisplay = ({ pontoDoDia, onReload }: Props) => {
 
     return (
         <div className="card card-border bg-base-100 w-96 border-base-300 my-5 mx-auto items-center justify-center">
-            <div className="card-body">
+            <div className="card-body items-center">
                 <FullDateLabel dataAtual={new Date()} />
                 <Countdown />
 

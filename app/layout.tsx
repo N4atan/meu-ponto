@@ -22,7 +22,7 @@ export default function RootLayout({
     >
       <body className="font-sans antialiased text-base">
         <Toaster position="bottom-right" reverseOrder={false} />
-        <main className="min-h-screen flex flex-col bg-zinc-50">
+        <main className="min-h-screen flex flex-col bg-base-200">
           <Header />
           {children}
         </main>

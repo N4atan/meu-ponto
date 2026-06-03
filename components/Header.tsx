@@ -1,4 +1,7 @@
-import { Database } from "lucide-react";
+"use client"
+
+import { exportToExcel } from "@/actions/sheet-action";
+import { Database, FileSpreadsheetIcon } from "lucide-react";
 
 export const Header = () => (
     <header className="navbar bg-base-100 shadow-sm ">
@@ -23,7 +26,10 @@ export const Header = () => (
                         <Database size={14}/>
                         Dados do App
                     </a></li>
-                    <li><a>Item 2</a></li>
+                    <li onClick={() => exportToExcel()}><a>
+                        <FileSpreadsheetIcon size={14}/>
+                        Exportar para [.xlsx]
+                    </a></li>
                 </ul>
             </div>
         </div>

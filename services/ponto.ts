@@ -1,6 +1,7 @@
 import axios from "axios";
 import toast from "react-hot-toast";
 import { DiaTrabalhado } from "@/lib/prisma";
+import { ToastCode } from "@/components/toast-code";
 
 
 
@@ -19,32 +20,32 @@ export const PontoAPI = {
 
             return ponto;
         } catch (error: any) {
-            toast.error(error.response?.data?.message || "Erro ao buscar ponto");
-            throw error;
-        }
-    },
+                ToastCode("Erro ao buscar pontos", error.response?.data || "");
+                throw error;
+            }
+        },
 
-    buscarPonto: async (date: Date) => {
-        try {
-            const dia = date.toISOString().split("T")[0];
-            const response = await axios.get(`/api/ponto/${dia}`);
-            return response.data as DiaTrabalhado;
-        } catch (error: any) {
-            toast.error(error.response?.data?.message || "Erro ao bater ponto");
-            throw error;
-        }
-    },
+        buscarPonto: async (date: Date) => {
+            try {
+                const dia = date.toISOString().split("T")[0];
+                const response = await axios.get(`/api/ponto/${dia}`);
+                return response.data as DiaTrabalhado;
+            } catch (error: any) {
+                ToastCode("Erro ao buscar ponto", error.response?.data || "");
+                throw error;
+            }
+        },
 
-    baterPonto: async (date: Date) => {
-        try {
-            const dia = date.toISOString().split("T")[0];
+        baterPonto: async (date: Date) => {
+            try {
+                const dia = date.toISOString().split("T")[0];
 
-            const response = await axios.post(`/api/ponto`, { dia });
-            toast.success("Ponto registrado com sucesso!");
-            return response.data;
-        } catch (error: any) {
-            toast.error(error.response?.data?.message || "Erro ao bater ponto");
-            throw error;
+                const response = await axios.post(`/api/ponto`, { dia });
+                toast.success("Ponto registrado com sucesso!");
+                return response.data;
+            } catch (error: any) {
+                ToastCode("Erro ao bater ponto", error.response?.data || "");
+                throw error;
         }
     },
 
@@ -55,7 +56,7 @@ export const PontoAPI = {
             toast.success("Jornada encerrada com sucesso!");
             return response.data;
         } catch (error: any) {
-            toast.error(error.response?.data?.message || "Erro ao encerrar jornada");
+            ToastCode("Erro ao encerrar jornada", error.response?.data || "");
             throw error;
         }
     },
@@ -67,7 +68,7 @@ export const PontoAPI = {
             toast.success("Ausência inserida com sucesso!");
             return response.data;
         } catch (error: any) {
-            toast.error(error.response?.data?.message || "Erro ao inserir ausência");
+            ToastCode("Erro ao inserir ausência", error.response?.data || "");
             throw error;
         }
     }
